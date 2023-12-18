@@ -23,12 +23,13 @@ const answerFormated = computed(() => {
   return marked.parse(text)
 })
 
+
 function replaceLinksWithMarkdownLink(text: string) {
-  const regex = /\[([^[\]]+)\]/g;
-  const replacement = "[Your Actual Link](https://example.com)";
+  const regex = /\[(.*?)\]/g;
   var index = 1
   return text.replace(regex, (_, capturedText) => {
-    const replacement = `[${index}](${capturedText})`
+    const url = encodeURIComponent(`https://demostorage0nx2l.blob.core.windows.net/esg/${capturedText}`)
+    const replacement = `[${index}](${url})`
     index++
     return replacement
   });
@@ -44,8 +45,7 @@ function replaceLinksWithMarkdownLink(text: string) {
   <div class="py-2 min-w-xl max-w-3xl" >
     <UCard class="bg-green-50 whitespace-pre-line" >
       <span v-html="answerFormated" class="chat-answer prose prose-md"></span>
-<!--      <ContentRendererMarkdown class="whitespace-pre-line">{{ answer }}</ContentRendererMarkdown>-->
-      <div class="space-y-2" v-if="isPending">
+      <div class="space-y-2" v-if="isPending && answer.length === 0">
         <USkeleton class="h-4 w-[250px]" :ui="{background: 'bg-green-300 dark:bg-green-800'}" />
         <USkeleton class="h-4 w-[200px]" :ui="{background: 'bg-green-200 dark:bg-green-600'}"/>
       </div>

@@ -1,3 +1,5 @@
+import type {Conversation, Prompt} from "~/stores/converstation-store";
+
 type PromptRequest = {
     question: string,
     chat_history?: {
@@ -17,8 +19,9 @@ export type Status = {
     initial: boolean,
 }
 
-export const usePrompt = (question: string) => {
-    const requestBody = buildRequest(question)
+export const usePrompt = (question: string, conversation: Conversation) => {
+
+    const requestBody = buildRequest(question, conversation)
     const answer = ref<string>('')
     const error = ref<any>(undefined)
     const pending = ref<boolean>(false)
@@ -50,7 +53,7 @@ export const usePrompt = (question: string) => {
         while (true) {
             const {done, value} = await reader.read()
             if (done) break;
-            console.log("StreamReceived")
+
             const jsonString = value.split('\n').map(line => {
                 if (line.startsWith('data:')) {
                     return `{${line.replace('data:', '"data":')}}`
@@ -60,10 +63,12 @@ export const usePrompt = (question: string) => {
             const answerChunk = json.map((chunk: any) => chunk.data.answer).join('')
 
             answer.value = answer.value + answerChunk
+            // answer.value = answer.value + value
         }
         console.log("DONE")
         pending.value = false
     }).catch(error => {
+        pending.value = false
         console.error(error)
         error.value = error
     })
@@ -86,5 +91,6 @@ export const usePrompt = (question: string) => {
         submissionStatus,
         question,
         answer,
+        requestBody
     }
 }

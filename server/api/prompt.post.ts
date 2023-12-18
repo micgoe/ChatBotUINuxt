@@ -11,21 +11,35 @@ export default  defineEventHandler(async (event) => {
     console.log(body)
 
 
-    const response =  await fetch('http://20.93.202.86/score', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': "text/event-stream",
-        },
-        body: JSON.stringify(body),
-    })
+    try {
+        const response =  await fetch('http://20.93.202.86/score', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'text/event-stream',
+            },
+            body: JSON.stringify(body),
+        })
 
-    if (!response.body) return;
-    const reader = response.body.pipeThrough(new TextDecoderStream()).getReader()
-    while (true) {
-        const { done, value } = await reader.read()
-        if (done) break;
-        console.log(value)
-        event.node.res.write(value)
+        if (!response.body) return;
+        const reader = response.body.pipeThrough(new TextDecoderStream()).getReader()
+        while (true) {
+            try {
+                const { done, value } = await reader.read()
+                if (done) break;
+                console.log("value")
+                console.log(value)
+                event.node.res.write(value)
+            } catch (error) {
+                console.error("error2")
+                console.error(error)
+            }
+        }
+
+        event._handled = true;
+    } catch (error) {
+        console.error("error")
+        console.error(error)
     }
+
 })

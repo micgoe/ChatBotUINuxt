@@ -19,6 +19,7 @@
   "dependencies": {
     "@nuxt/ui": "^2.11.1",
     "@pinia/nuxt": "^0.5.1",
-    "marked": "^11.1.0"
+    "marked": "^11.1.0",
+    "uuid": "^9.0.1"
   }
 }
