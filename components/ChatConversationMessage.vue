@@ -65,13 +65,6 @@ function replaceLinksWithMarkdownLink(text: string) {
 
 <style>
 
-.chat-answer ul {
-  ul {
-    background-color: red;
-    list-style-type: disc;
-  }
-}
-
 .chat-answer {
   a {
     &::before {
