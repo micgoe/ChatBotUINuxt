@@ -6,11 +6,11 @@ export default  defineEventHandler(async (event) => {
     console.log(body)
 
 
-    const repo = await $fetch('http://20.76.38.218/score', {
+    const repo = await $fetch('http://20.93.202.86/score', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Accept': "text/event-stream",
+            // 'Accept': "text/event-stream",
         },
         body: JSON.stringify(body),
 
