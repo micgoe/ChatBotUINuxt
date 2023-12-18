@@ -25,5 +25,9 @@ export const useConversationStore = defineStore('conversation', () => {
         conversation.value.push(prompt())
     }
 
-    return { conversation, submitPrompt, hasNotStarted }
+    function resetConversation() {
+        conversation.value = []
+    }
+
+    return { conversation, submitPrompt, hasNotStarted, resetConversation }
 })

@@ -5,6 +5,7 @@
 <template>
   <div class="container mx-auto p-8">
     <h1 class="text-2xl pb-6">ChatBot</h1>
+    <ChatMenu />
     <div>
       <ChatConversation />
       <ChatInput />

@@ -12,9 +12,11 @@ const submitPrompt = () => {
 
 <template>
   <div>
-    <div class="flex py-5">
-      <UInput v-model="input" class="flex-1 pr-2 py-3"/>
-      <UButton @click="submitPrompt()"><UIcon name="i-heroicons-rocket-launch" /></UButton>
+    <div class=" flex items-center py-5 gap-4 justify-end place-content-stretch">
+<!--      <UInput v-model="input" class="flex-1 pr-2 py-3"/>-->
+      <UTextarea v-model="input" color="primary grow max-w-2xl w-80 pr-2 py-3" size="xl" variant="outline" placeholder="Wann bekomme ich Sonderurlaub? ..." />
+
+      <UButton @click="submitPrompt()" size="lg" icon="i-heroicons-rocket-launch">Anfrage senden</UButton>
     </div>
 <!--    <UAlert v-show="conversationStore.submissionStatus.error" type="error">Fehler beim Senden der Anfrage</UAlert>-->
 <!--    {{conversationStore.submissionStatus}}-->
