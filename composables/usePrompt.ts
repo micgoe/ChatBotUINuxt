@@ -34,8 +34,9 @@ export const usePrompt = (question: string) => {
     //     server: false,
     //     // use time-stamp prevent cache of the request
     //     key: new Date().getTime().toString()
-    // })
+    // }
 
+    pending.value = true
     fetch('/api/prompt', {
         method: 'POST',
         headers: {
@@ -44,7 +45,6 @@ export const usePrompt = (question: string) => {
         },
         body: JSON.stringify(requestBody),
     }).then(async response => {
-        pending.value = true
         if (!response.body) return;
         const reader = response.body.pipeThrough(new TextDecoderStream()).getReader()
         while (true) {
@@ -60,8 +60,8 @@ export const usePrompt = (question: string) => {
             const answerChunk = json.map((chunk: any) => chunk.data.answer).join('')
 
             answer.value = answer.value + answerChunk
-
         }
+        console.log("DONE")
         pending.value = false
     }).catch(error => {
         console.error(error)
