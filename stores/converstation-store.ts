@@ -17,7 +17,7 @@ export type Conversation = {
 }
 
 export const useConversationStore = defineStore('conversation', () => {
-    const email = ref<string | undefined>("test")
+    const email = ref<string | undefined>(undefined)
     const session = ref<string | undefined>(undefined)
 
 
