@@ -7,9 +7,7 @@ const conversationStore = useConversationStore()
 
 <template>
   <div class="border p-6 flex flex-col">
-    <ChatConversationMessage v-for="({message, owner}, index) in conversationStore.conversation" :key="index" :owner="owner">
-      {{message}}
-    </ChatConversationMessage>
+    <ChatConversationMessage v-for="({question, answer, submissionStatus}, index) in conversationStore.conversation" :key="index" :question="question" :answer="answer" :submission-status="submissionStatus" />
   </div>
 </template>
 
