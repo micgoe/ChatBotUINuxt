@@ -28,7 +28,8 @@ export const usePrompt = (question: string) => {
         body: requestBody,
         immediate: true,
         server: false,
-        key: requestBody.question
+        // use time-stamp prevent cache of the request
+        key: new Date().getTime().toString()
     })
 
     const answer = computed(() => data.value?.answer)
