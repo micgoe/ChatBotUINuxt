@@ -14,7 +14,7 @@ const submitPrompt = () => {
   <div>
     <div class="flex py-5">
       <UInput v-model="input" class="flex-1 pr-2 py-3"/>
-      <UButton @click="submitPrompt()">Anfrage Senden</UButton>
+      <UButton @click="submitPrompt()"><UIcon name="i-heroicons-rocket-launch" /></UButton>
     </div>
 <!--    <UAlert v-show="conversationStore.submissionStatus.error" type="error">Fehler beim Senden der Anfrage</UAlert>-->
 <!--    {{conversationStore.submissionStatus}}-->

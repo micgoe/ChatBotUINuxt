@@ -28,6 +28,7 @@ export const usePrompt = (question: string) => {
         body: requestBody,
         immediate: true,
         server: false,
+        key: requestBody.question
     })
 
     const answer = computed(() => data.value?.answer)

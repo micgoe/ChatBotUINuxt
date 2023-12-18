@@ -15,20 +15,32 @@ const props = defineProps<{
 //   }
 // })
 
+const isPending = computed(() => props.submissionStatus.pending && !props.submissionStatus.initial)
+
+
 </script>
 
 <template>
   <div class="py-2 min-w-xl max-w-3xl self-end" >
-    <UCard class="bg-blue-100">
+    <UCard class="bg-green-500 text-white">
       {{ question }}
     </UCard>
   </div>
   <div class="py-2 min-w-xl max-w-3xl" >
-    <UCard class="bg-blue-100">
+    <UCard class="bg-green-50">
       {{ answer }}
+      <div class="space-y-2" v-if="isPending">
+        <USkeleton class="h-4 w-[250px]" :ui="{background: 'bg-green-300 dark:bg-green-800'}" />
+        <USkeleton class="h-4 w-[200px]" :ui="{background: 'bg-green-200 dark:bg-green-600'}"/>
+      </div>
       <template #footer >
-        {{ props.submissionStatus.error }}
-        <UProgress animation="carousel" v-show="props.submissionStatus.pending && !props.submissionStatus.initial"/>
+        <UAlert
+            v-if="submissionStatus.error"
+            icon="i-heroicons-command-line"
+            :description="props.submissionStatus.error"
+            title="Fehler"
+        />
+        <UProgress animation="carousel" v-show="isPending"/>
       </template>
     </UCard>
 

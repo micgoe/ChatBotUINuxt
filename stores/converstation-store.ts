@@ -1,5 +1,6 @@
 import type {Status} from "~/composables/usePrompt";
 import type {ComputedGetter, ComputedRef} from "vue";
+import {usePrompt} from "~/composables/usePrompt";
 
 export type Prompt = {
     question: string,
@@ -11,38 +12,18 @@ export type Prompt = {
 export const useConversationStore = defineStore('conversation', () => {
 
     const conversation = ref<Prompt[]>([
-        {
-            question: 'Hello',
-            answer: computed(() => 'Hello'),
-            submissionStatus: computed(() => ({
-                error: null,
-                pending: false,
-                data: null,
-                initial: true,
-            })),
-        },
-        {
-            question: 'How are you?',
-            answer: computed(() => 'I am fine'),
-            submissionStatus: computed(() => ({
-                error: null,
-                pending: false,
-                data: null,
-                initial: true,
-            })),
-        },
     ])
 
+    const hasNotStarted = computed(() => conversation.value.length === 0)
 
     // const pastUserMessages = computed(() => conversation.value.filter(message => message.owner === MessageOwner.User))
     // const pastBotMessages = computed(() => conversation.value.filter(message => message.owner === MessageOwner.Bot))
     // const requestBody = ref<PromptRequest>();
 
     function submitPrompt(question: string) {
-        const prompt = usePrompt(question)
-        console.log(prompt)
-        conversation.value.push(prompt)
+        const prompt = () => usePrompt(question)
+        conversation.value.push(prompt())
     }
 
-    return { conversation, submitPrompt }
+    return { conversation, submitPrompt, hasNotStarted }
 })
